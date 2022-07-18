@@ -1,6 +1,9 @@
+import { Box, CircularProgress } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import Planets from "../Components/Planets";
+import Footer from "../Shared/Footer";
+
 import ThemeContainer from "../Shared/ThemeContainer";
+import MSearchPlanets from "./MSearchPlanets";
 
 const MPlanets = () => {
   const [initialState, setInitialState] = useState<any>({
@@ -18,6 +21,7 @@ const MPlanets = () => {
           return elem;
         });
         setInitialState({ data: _data });
+        setLoading(false);
       });
   };
 
@@ -27,10 +31,22 @@ const MPlanets = () => {
 
   return (
     <ThemeContainer>
-      {initialState.data ? (
-        <Planets data={initialState.data} />
+      {!loading && initialState.data ? (
+        <>
+          <MSearchPlanets data={initialState.data.results} />
+          <Footer />
+        </>
       ) : (
-        <p>MPlanets</p>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            right: "50%",
+            transform: "translate(50%, -50%)",
+          }}
+        >
+          <CircularProgress size={90} sx={{ color: "#ff1f48" }} />
+        </Box>
       )}
     </ThemeContainer>
   );
