@@ -1,5 +1,5 @@
 import { Dialog } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import Chart from "./Chart";
 
 type IProps = {
@@ -9,9 +9,7 @@ type IProps = {
 };
 const Modal = (props: IProps) => {
   const { open, onClose, data } = props;
-  useEffect(() => {
-    console.log(data);
-  }, []);
+
   return (
     <Dialog
       open={open}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Radar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -38,7 +38,7 @@ const Chart = (props: IProps) => {
 
   const getColor = (id: number, prop: string) => {
     let color = colors.filter((f: any) => f.id === id);
-    console.log(color);
+
     if (prop === "border") {
       return color[0].border;
     } else {
@@ -46,7 +46,7 @@ const Chart = (props: IProps) => {
     }
   };
   const getGravity = (param: any) => {
-    let paramFormated = Number(param.replace(/[^0-9\.]+/g, ""));
+    let paramFormated = Number(param.replace(/[^0-9.]+/g, ""));
     return isNaN(paramFormated) ? 0 : paramFormated;
   };
 
@@ -79,10 +79,6 @@ const Chart = (props: IProps) => {
       // ).border,
     };
   });
-
-  useEffect(() => {
-    console.log("dataset", dataset);
-  }, []);
 
   return (
     <Radar

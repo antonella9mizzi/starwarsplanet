@@ -20,8 +20,31 @@ import Modal from "./Modal";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     section: {
+      height: "70vh",
+
       padding: "40px 10% 0 10%",
       marginBottom: 70,
+      "& > .swiper-pagination-bullets": {
+        bottom: 10,
+
+        "& .swiper-pagination-bullet": {
+          transition: "width          0.3s ease-in",
+          marginTop: 4,
+          backgroundColor: theme.palette.secondary.main,
+          opacity: 1,
+        },
+        "& .swiper-pagination-bullet-active": {
+          width: 24,
+
+          borderRadius: 4,
+        },
+      },
+    },
+    sectionEmpty: {
+      height: "60vh",
+      "& p": {
+        textAlign: "center",
+      },
     },
     switchContainer: {
       display: "flex",
@@ -33,6 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       padding: "0 3%",
     },
+    titleContainer: { display: "flex", justifyContent: "center" },
     title: {
       maxWidth: "50%",
       fontWeight: 600,
@@ -40,6 +64,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
       fontSize: 46,
       margin: 0,
+      [theme.breakpoints.down("sm")]: {
+        fontSize: 32,
+      },
     },
   })
 );
@@ -116,12 +143,14 @@ const Planets = (props: IProps) => {
       ) : (
         <Grid style={{ height: 54 }}></Grid>
       )}
-      <Grid style={{ display: "flex", justifyContent: "center" }}>
+      <Grid className={c.titleContainer}>
         <p className={c.title}>Choose some planets and start comparing!</p>
       </Grid>
 
-      {data.length < 0 ? (
-        <p>Opps, try with anoter name</p>
+      {data.length < 1 ? (
+        <div className={c.sectionEmpty}>
+          <p>Opps, try with anoter name</p>
+        </div>
       ) : (
         <Swiper
           className={`mySwiper ${c.section}`}
@@ -129,10 +158,6 @@ const Planets = (props: IProps) => {
           spaceBetween={30}
           pagination={{
             clickable: true,
-          }}
-          style={{
-            height: "70vh",
-            padding: 30,
           }}
           modules={[Pagination]}
         >
